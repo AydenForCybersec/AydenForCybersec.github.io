@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayden Quinn — Cybersecurity & Development</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET & BASE ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #1a2840;
+      --navy-mid:  #1e3152;
+      --navy-light:#243a60;
+      --accent:    #4e9af1;
+      --accent2:   #7bb8f8;
+      --white:     #f0f4ff;
+      --muted:     #8ba4c8;
+      --card-bg:   #1e2d47;
+      --border:    rgba(78,154,241,0.18);
+      --glow:      rgba(78,154,241,0.12);
+      --font-display: 'Syne', sans-serif;
+      --font-mono:    'DM Mono', monospace;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--accent); color: var(--navy); }
+
+    /* ── SCROLLBAR ───────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--navy-light); border-radius: 3px; }
+
+    /* ── NAV ─────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(26, 40, 64, 0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ─────────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 7rem 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(78,154,241,0.10) 0%, transparent 70%);
+      top: 50%; left: 60%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-photo-wrap {
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      opacity: 0.5;
+      animation: spin-border 10s linear infinite;
+    }
+
+    @keyframes spin-border {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .hero-photo {
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+      border: 3px solid var(--navy-mid);
+    }
+
+    .hero-text { flex: 1; }
+
+    .hero-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.2s;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.35s;
+    }
+
+    .hero-name span { color: var(--accent); }
+
+    .hero-sub {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-top: 1rem;
+      max-width: 500px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.5s;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.6rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.65s;
+    }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--accent2);
+      background: var(--glow);
+      letter-spacing: 0.06em;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.8s;
+    }
+
+    .btn-primary {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 0.75rem 1.6rem;
+      background: var(--accent);
+      color: var(--navy);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+
+    .btn-outline {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 0.75rem 1.6rem;
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: border-color 0.2s, transform 0.15s, background 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      background: var(--glow);
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTIONS ─────────────────────────────────────────────────── */
+    section {
+      padding: 6rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-rule {
+      width: 48px; height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── ABOUT ────────────────────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+      font-size: 0.97rem;
+    }
+
+    .about-text p strong { color: var(--white); }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.4rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-top: 0.3rem;
+    }
+
+    /* ── PROJECTS ─────────────────────────────────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(78,154,241,0.12);
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-icon {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-name {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      line-height: 1.6;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.2rem 0.55rem;
+      background: rgba(78,154,241,0.08);
+      border: 1px solid rgba(78,154,241,0.2);
+      border-radius: 3px;
+      color: var(--accent2);
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-decoration: none;
+      margin-top: 1.2rem;
+      transition: gap 0.2s;
+    }
+
+    .project-link:hover { gap: 0.7rem; }
+
+    /* ── SKILLS ───────────────────────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-group {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem;
+      transition: border-color 0.2s;
+    }
+
+    .skill-group:hover { border-color: var(--accent); }
+
+    .skill-group-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+    }
+
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .skill-list li {
+      font-size: 0.87rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .skill-list li::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── COMPETITIONS ─────────────────────────────────────────────── */
+    .comps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .comp-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem 2rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .comp-card:hover { border-color: var(--accent); transform: translateX(4px); }
+
+    .comp-icon {
+      font-size: 2rem;
+      width: 56px; height: 56px;
+      background: rgba(78,154,241,0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .comp-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .comp-org {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    .comp-bullets {
+      list-style: none;
+      margin-top: 0.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .comp-bullets li {
+      font-size: 0.83rem;
+      color: var(--muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .comp-bullets li::before {
+      content: '›';
+      color: var(--accent);
+      font-size: 1rem;
+      line-height: 1.3;
+      flex-shrink: 0;
+    }
+
+    .comp-year {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: rgba(78,154,241,0.08);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.3rem 0.7rem;
+      white-space: nowrap;
+      align-self: flex-start;
+    }
+
+    /* ── WORK EXP ─────────────────────────────────────────────────── */
+    .work-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .work-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem 2rem;
+      transition: border-color 0.2s;
+    }
+
+    .work-card:hover { border-color: var(--accent); }
+
+    .work-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .work-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .work-company {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    .work-date {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      white-space: nowrap;
+      background: rgba(78,154,241,0.08);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.3rem 0.7rem;
+    }
+
+    .work-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .work-bullets li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+    }
+
+    .work-bullets li::before {
+      content: '›';
+      color: var(--accent);
+      font-size: 1rem;
+      line-height: 1.5;
+      flex-shrink: 0;
+    }
+
+    /* ── CONTACT ──────────────────────────────────────────────────── */
+    #contact {
+      text-align: center;
+    }
+
+    .contact-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .contact-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 2rem;
+      text-decoration: none;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: border-color 0.2s, transform 0.2s;
+      min-width: 200px;
+    }
+
+    .contact-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+    .contact-card-icon { font-size: 1.4rem; }
+
+    .contact-card-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .contact-card-value {
+      font-size: 0.9rem;
+      color: var(--white);
+    }
+
+    /* ── FOOTER ───────────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── DIVIDER ──────────────────────────────────────────────────── */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── SCROLL REVEAL ───────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { gap: 1.2rem; }
+      .hero-inner { flex-direction: column; text-align: center; gap: 2rem; }
+      .hero-cta { justify-content: center; }
+      .hero-badges { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; }
+      .comp-card { grid-template-columns: auto 1fr; }
+      .comp-year { grid-column: 2; }
+      section { padding: 4rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">AQ<span style="color:var(--muted)">.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#competitions">Comps</a></li>
+      <li><a href="#experience">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="hero-photo-wrap">
+        <img src="avatar.png" alt="Ayden Quinn" class="hero-photo" />
+      </div>
+      <div class="hero-text">
+        <p class="hero-tag">// Cybersecurity &amp; Development</p>
+        <h1 class="hero-name">Ayden<br /><span>Quinn</span></h1>
+        <p class="hero-sub">Dual-credit senior, two-time national FBLA competitor, self-taught Linux systems engineer, and aspiring penetration tester heading to Drury University in Fall 2026.</p>
+        <div class="hero-badges">
+          <span class="badge">Arch Linux</span>
+          <span class="badge">Penetration Testing</span>
+          <span class="badge">Network Infrastructure</span>
+          <span class="badge">Flask &amp; Python</span>
+          <span class="badge">FBLA National x2</span>
+        </div>
+        <div class="hero-cta">
+          <a href="#projects" class="btn-primary">View Projects</a>
+          <a href="#contact" class="btn-outline">Get In Touch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="reveal">
+      <p class="section-label">// 01 — About</p>
+      <h2 class="section-title">Who I Am</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>I'm a <strong>dual-credit high school senior</strong> from Camdenton, Missouri with a deep passion for cybersecurity, Linux systems, and building things that actually work. I've been tinkering with hardware and operating systems since before most people knew what a package manager was.</p>
+        <p>My daily driver runs <strong>Arch Linux with Sway</strong> as my window manager — I care about understanding my tools all the way down. I build projects to solve real problems, compete at the national level in tech events, and I'm heading to <strong>Drury University</strong> in Fall 2026 to pursue cybersecurity formally.</p>
+        <p>My long-term goal is a career in <strong>penetration testing and ethical hacking</strong> — finding vulnerabilities before the bad guys do.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-num">2×</div>
+          <div class="stat-label">FBLA National Competitor</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">GitHub Repositories</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">5</div>
+          <div class="stat-label">Dual-Credit Courses</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Hours on the Terminal</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="reveal">
+      <p class="section-label">// 02 — Projects</p>
+      <h2 class="section-title">What I've Built</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-icon">🔧</div>
+        <div class="project-name">Autoshop CRM</div>
+        <p class="project-desc">A full-stack customer relationship management system built for a real automotive repair shop. Handles customer records, vehicle service history, and appointment scheduling — built so non-technical staff can use it without training.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Flask</span>
+          <span class="tag">HTML/CSS/JS</span>
+          <span class="tag">SQL</span>
+        </div>
+        <a href="https://github.com/AydenForCybersec/Autoshop-CRM" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-icon">🖼️</div>
+        <div class="project-name">AltGen</div>
+        <p class="project-desc">A Python utility for automated alt-text generation. Designed to improve accessibility by programmatically describing images — an intersection of scripting and practical problem-solving.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Automation</span>
+          <span class="tag">Accessibility</span>
+        </div>
+        <a href="https://github.com/AydenForCybersec/AltGen" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-icon">✍️</div>
+        <div class="project-name">Digital Sign</div>
+        <p class="project-desc">A Python-based digital signature project exploring cryptographic concepts and document integrity verification — built to understand the mechanics of public key infrastructure hands-on.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Cryptography</span>
+          <span class="tag">PKI</span>
+        </div>
+        <a href="https://github.com/AydenForCybersec/Digital-Sign" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="reveal">
+      <p class="section-label">// 03 — Skills</p>
+      <h2 class="section-title">What I Work With</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-group">
+        <div class="skill-group-title">Operating Systems</div>
+        <ul class="skill-list">
+          <li>Arch Linux (daily driver)</li>
+          <li>Sway Window Manager</li>
+          <li>General Linux Admin</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Languages</div>
+        <ul class="skill-list">
+          <li>Python</li>
+          <li>HTML / CSS</li>
+          <li>JavaScript</li>
+          <li>Java</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Frameworks & Tools</div>
+        <ul class="skill-list">
+          <li>Flask</li>
+          <li>SQL Database Mgmt</li>
+          <li>Git</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Networking</div>
+        <ul class="skill-list">
+          <li>TCP/IP Fundamentals</li>
+          <li>Network Topology</li>
+          <li>Subnetting</li>
+          <li>Packet Analysis</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Cybersecurity</div>
+        <ul class="skill-list">
+          <li>Penetration Testing</li>
+          <li>OSINT</li>
+          <li>Vulnerability Assessment</li>
+          <li>Threat Analysis</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Hardware</div>
+        <ul class="skill-list">
+          <li>Custom PC Building</li>
+          <li>Hardware Modding</li>
+          <li>Component Troubleshooting</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- COMPETITIONS -->
+  <section id="competitions">
+    <div class="reveal">
+      <p class="section-label">// 04 — Competitions</p>
+      <h2 class="section-title">FBLA National Stage</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="comps-list">
+      <div class="comp-card reveal">
+        <div class="comp-icon">🌐</div>
+        <div>
+          <div class="comp-title">Network Infrastructure</div>
+          <div class="comp-org">Future Business Leaders of America</div>
+          <ul class="comp-bullets">
+            <li>Competing at the national level covering routing, switching, and enterprise network design</li>
+            <li>Applying TCP/IP, network topology, subnetting, and infrastructure security</li>
+          </ul>
+        </div>
+        <div class="comp-year">June 2026</div>
+      </div>
+      <div class="comp-card reveal">
+        <div class="comp-icon">🔒</div>
+        <div>
+          <div class="comp-title">Cybersecurity</div>
+          <div class="comp-org">Future Business Leaders of America</div>
+          <ul class="comp-bullets">
+            <li>Advanced to the national level competing in cybersecurity concepts and best practices</li>
+            <li>Demonstrated skills in threat analysis, vulnerability assessment, and information security</li>
+          </ul>
+        </div>
+        <div class="comp-year">June 2025</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- WORK EXPERIENCE -->
+  <section id="experience">
+    <div class="reveal">
+      <p class="section-label">// 05 — Work Experience</p>
+      <h2 class="section-title">Where I've Worked</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="work-list">
+      <div class="work-card reveal">
+        <div class="work-header">
+          <div>
+            <div class="work-title">Ticket Sales & Customer Service</div>
+            <div class="work-company">Ozarks Amphitheater — Camdenton, MO</div>
+          </div>
+          <div class="work-date">May – Sep 2024</div>
+        </div>
+        <ul class="work-bullets">
+          <li>Processed high-volume cash and card transactions accurately across concurrent events</li>
+          <li>De-escalated disputes over invalid online tickets, resolving issues calmly under pressure</li>
+          <li>Built repeat customer relationships — regulars sought me out specifically to purchase from</li>
+          <li>Assisted teammates with ticket scanning and crowd direction during peak periods</li>
+        </ul>
+      </div>
+      <div class="work-card reveal">
+        <div class="work-header">
+          <div>
+            <div class="work-title">Busser</div>
+            <div class="work-company">The Fish and Co. — Camdenton, MO</div>
+          </div>
+          <div class="work-date">May – Aug 2023</div>
+        </div>
+        <ul class="work-bullets">
+          <li>Maintained efficient table turnover during high-traffic service periods</li>
+          <li>Developed composure and teamwork skills working under pressure in a fast-paced environment</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="reveal">
+      <p class="section-label">// 06 — Contact</p>
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="section-rule" style="margin: 0 auto 1rem;"></div>
+      <p style="color: var(--muted); font-size: 0.95rem;">Open to internships, opportunities, and interesting conversations.</p>
+    </div>
+    <div class="contact-grid reveal">
+      <a href="mailto:aydenrq@proton.me" class="contact-card">
+        <div class="contact-card-icon">✉️</div>
+        <div>
+          <div class="contact-card-label">Email</div>
+          <div class="contact-card-value">aydenrq@proton.me</div>
+        </div>
+      </a>
+      <a href="https://github.com/AydenForCybersec" target="_blank" class="contact-card">
+        <div class="contact-card-icon">⌨️</div>
+        <div>
+          <div class="contact-card-label">GitHub</div>
+          <div class="contact-card-value">AydenForCybersec</div>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/ayden-quinn-8b8483295/" target="_blank" class="contact-card">
+        <div class="contact-card-icon">💼</div>
+        <div>
+          <div class="contact-card-label">LinkedIn</div>
+          <div class="contact-card-value">Ayden Quinn</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Ayden Quinn &nbsp;·&nbsp; Built with HTML, CSS &amp; JS &nbsp;·&nbsp; Hosted on GitHub Pages</p>
+  </footer>
+
+  <!-- SCROLL REVEAL SCRIPT -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
