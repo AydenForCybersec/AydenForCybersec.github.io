@@ -8,20 +8,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
   <style>
-    /* ── RESET & BASE ─────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:      #1a2840;
-      --navy-mid:  #1e3152;
-      --navy-light:#243a60;
-      --accent:    #4e9af1;
-      --accent2:   #7bb8f8;
-      --white:     #f0f4ff;
-      --muted:     #8ba4c8;
-      --card-bg:   #1e2d47;
-      --border:    rgba(78,154,241,0.18);
-      --glow:      rgba(78,154,241,0.12);
+      --navy:      #15202e;
+      --navy-mid:  #1a2a3d;
+      --navy-light:#1f3249;
+      --accent:    #3b82f6;
+      --accent2:   #60a5fa;
+      --white:     #e8edf5;
+      --muted:     #7a94b4;
+      --card-bg:   #1a2a3d;
+      --border:    rgba(59,130,246,0.15);
+      --glow:      rgba(59,130,246,0.08);
       --font-display: 'Syne', sans-serif;
       --font-mono:    'DM Mono', monospace;
       --font-body:    'DM Sans', sans-serif;
@@ -38,14 +37,13 @@
       overflow-x: hidden;
     }
 
-    ::selection { background: var(--accent); color: var(--navy); }
+    ::selection { background: var(--accent); color: #fff; }
 
-    /* ── SCROLLBAR ───────────────────────────────────────────────── */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--navy); }
     ::-webkit-scrollbar-thumb { background: var(--navy-light); border-radius: 3px; }
 
-    /* ── NAV ─────────────────────────────────────────────────────── */
+    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -54,8 +52,8 @@
       align-items: center;
       justify-content: space-between;
       padding: 1rem 2.5rem;
-      background: rgba(26, 40, 64, 0.85);
-      backdrop-filter: blur(14px);
+      background: rgba(21, 32, 46, 0.92);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
 
@@ -68,11 +66,7 @@
       text-decoration: none;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
 
     .nav-links a {
       font-family: var(--font-mono);
@@ -86,35 +80,12 @@
 
     .nav-links a:hover { color: var(--accent); }
 
-    /* ── HERO ─────────────────────────────────────────────────────── */
+    /* HERO */
     #hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
       padding: 7rem 2.5rem 4rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-grid-bg {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
-      pointer-events: none;
-    }
-
-    .hero-glow {
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(78,154,241,0.10) 0%, transparent 70%);
-      top: 50%; left: 60%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
     }
 
     .hero-inner {
@@ -123,38 +94,17 @@
       gap: 4rem;
       max-width: 1100px;
       margin: 0 auto;
-      position: relative;
-      z-index: 1;
     }
 
-    .hero-photo-wrap {
-      flex-shrink: 0;
-      position: relative;
-    }
-
-    .hero-photo-wrap::before {
-      content: '';
-      position: absolute;
-      inset: -6px;
-      border-radius: 50%;
-      border: 2px solid var(--accent);
-      opacity: 0.5;
-      animation: spin-border 10s linear infinite;
-    }
-
-    @keyframes spin-border {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
+    .hero-photo-wrap { flex-shrink: 0; }
 
     .hero-photo {
       width: 180px; height: 180px;
       border-radius: 50%;
       object-fit: cover;
       display: block;
-      position: relative;
-      z-index: 1;
-      border: 3px solid var(--navy-mid);
+      border: 2px solid rgba(59,130,246,0.4);
+      box-shadow: 0 0 0 6px rgba(59,130,246,0.07);
     }
 
     .hero-text { flex: 1; }
@@ -184,7 +134,6 @@
     .hero-name span { color: var(--accent); }
 
     .hero-sub {
-      font-family: var(--font-body);
       font-size: 1.05rem;
       color: var(--muted);
       margin-top: 1rem;
@@ -226,7 +175,7 @@
       font-size: 0.82rem;
       padding: 0.75rem 1.6rem;
       background: var(--accent);
-      color: var(--navy);
+      color: #fff;
       border: none;
       border-radius: 6px;
       cursor: pointer;
@@ -263,7 +212,7 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── SECTIONS ─────────────────────────────────────────────────── */
+    /* SECTIONS */
     section {
       padding: 6rem 2.5rem;
       max-width: 1100px;
@@ -294,7 +243,7 @@
       margin-bottom: 2.5rem;
     }
 
-    /* ── ABOUT ────────────────────────────────────────────────────── */
+    /* ABOUT */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -302,19 +251,10 @@
       align-items: start;
     }
 
-    .about-text p {
-      color: var(--muted);
-      margin-bottom: 1rem;
-      font-size: 0.97rem;
-    }
-
+    .about-text p { color: var(--muted); margin-bottom: 1rem; font-size: 0.97rem; }
     .about-text p strong { color: var(--white); }
 
-    .about-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
     .stat-card {
       background: var(--card-bg);
@@ -342,7 +282,7 @@
       margin-top: 0.3rem;
     }
 
-    /* ── PROJECTS ─────────────────────────────────────────────────── */
+    /* PROJECTS */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -372,15 +312,18 @@
     .project-card:hover {
       border-color: var(--accent);
       transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(78,154,241,0.12);
+      box-shadow: 0 12px 40px rgba(59,130,246,0.10);
     }
 
     .project-card:hover::before { opacity: 1; }
 
     .project-icon {
-      font-size: 1.6rem;
+      width: 32px; height: 32px;
+      color: var(--accent);
       margin-bottom: 1rem;
     }
+
+    .project-icon svg { width: 100%; height: 100%; stroke-width: 1.5; }
 
     .project-name {
       font-family: var(--font-display);
@@ -397,18 +340,14 @@
       line-height: 1.6;
     }
 
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
     .tag {
       font-family: var(--font-mono);
       font-size: 0.68rem;
       padding: 0.2rem 0.55rem;
-      background: rgba(78,154,241,0.08);
-      border: 1px solid rgba(78,154,241,0.2);
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(59,130,246,0.18);
       border-radius: 3px;
       color: var(--accent2);
     }
@@ -427,7 +366,7 @@
 
     .project-link:hover { gap: 0.7rem; }
 
-    /* ── SKILLS ───────────────────────────────────────────────────── */
+    /* SKILLS */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -453,12 +392,7 @@
       margin-bottom: 0.9rem;
     }
 
-    .skill-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-    }
+    .skill-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
 
     .skill-list li {
       font-size: 0.87rem;
@@ -476,12 +410,8 @@
       flex-shrink: 0;
     }
 
-    /* ── COMPETITIONS ─────────────────────────────────────────────── */
-    .comps-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
+    /* COMPETITIONS */
+    .comps-list { display: flex; flex-direction: column; gap: 1.2rem; }
 
     .comp-card {
       background: var(--card-bg);
@@ -498,14 +428,18 @@
     .comp-card:hover { border-color: var(--accent); transform: translateX(4px); }
 
     .comp-icon {
-      font-size: 2rem;
-      width: 56px; height: 56px;
-      background: rgba(78,154,241,0.1);
-      border-radius: 12px;
+      width: 48px; height: 48px;
+      background: rgba(59,130,246,0.08);
+      border: 1px solid var(--border);
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
     }
+
+    .comp-icon svg { width: 22px; height: 22px; stroke-width: 1.5; }
 
     .comp-title {
       font-family: var(--font-display);
@@ -514,19 +448,9 @@
       color: var(--white);
     }
 
-    .comp-org {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-top: 0.2rem;
-    }
+    .comp-org { font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
 
-    .comp-bullets {
-      list-style: none;
-      margin-top: 0.6rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
+    .comp-bullets { list-style: none; margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.25rem; }
 
     .comp-bullets li {
       font-size: 0.83rem;
@@ -548,7 +472,7 @@
       font-family: var(--font-mono);
       font-size: 0.8rem;
       color: var(--accent);
-      background: rgba(78,154,241,0.08);
+      background: rgba(59,130,246,0.08);
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 0.3rem 0.7rem;
@@ -556,12 +480,8 @@
       align-self: flex-start;
     }
 
-    /* ── WORK EXP ─────────────────────────────────────────────────── */
-    .work-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
+    /* WORK */
+    .work-list { display: flex; flex-direction: column; gap: 1.2rem; }
 
     .work-card {
       background: var(--card-bg);
@@ -588,29 +508,20 @@
       color: var(--white);
     }
 
-    .work-company {
-      font-size: 0.88rem;
-      color: var(--muted);
-      margin-top: 0.15rem;
-    }
+    .work-company { font-size: 0.88rem; color: var(--muted); margin-top: 0.15rem; }
 
     .work-date {
       font-family: var(--font-mono);
       font-size: 0.75rem;
       color: var(--accent);
       white-space: nowrap;
-      background: rgba(78,154,241,0.08);
+      background: rgba(59,130,246,0.08);
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 0.3rem 0.7rem;
     }
 
-    .work-bullets {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
+    .work-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
 
     .work-bullets li {
       font-size: 0.88rem;
@@ -628,10 +539,8 @@
       flex-shrink: 0;
     }
 
-    /* ── CONTACT ──────────────────────────────────────────────────── */
-    #contact {
-      text-align: center;
-    }
+    /* CONTACT */
+    #contact { text-align: center; }
 
     .contact-grid {
       display: flex;
@@ -657,7 +566,14 @@
 
     .contact-card:hover { border-color: var(--accent); transform: translateY(-3px); }
 
-    .contact-card-icon { font-size: 1.4rem; }
+    .contact-card-icon {
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .contact-card-icon svg { width: 20px; height: 20px; stroke-width: 1.5; }
 
     .contact-card-label {
       font-family: var(--font-mono);
@@ -667,12 +583,9 @@
       text-transform: uppercase;
     }
 
-    .contact-card-value {
-      font-size: 0.9rem;
-      color: var(--white);
-    }
+    .contact-card-value { font-size: 0.9rem; color: var(--white); }
 
-    /* ── FOOTER ───────────────────────────────────────────────────── */
+    /* FOOTER */
     footer {
       text-align: center;
       padding: 2rem;
@@ -683,7 +596,7 @@
       letter-spacing: 0.06em;
     }
 
-    /* ── DIVIDER ──────────────────────────────────────────────────── */
+    /* DIVIDER */
     .section-divider {
       width: 100%;
       height: 1px;
@@ -692,19 +605,16 @@
       margin: 0 auto;
     }
 
-    /* ── SCROLL REVEAL ───────────────────────────────────────────── */
+    /* SCROLL REVEAL */
     .reveal {
       opacity: 0;
       transform: translateY(28px);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
+    .reveal.visible { opacity: 1; transform: none; }
 
-    /* ── RESPONSIVE ───────────────────────────────────────────────── */
+    /* RESPONSIVE */
     @media (max-width: 768px) {
       nav { padding: 1rem 1.2rem; }
       .nav-links { gap: 1.2rem; }
@@ -720,29 +630,25 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <a href="#hero" class="nav-logo">AQ<span style="color:var(--muted)">.</span></a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
-      <li><a href="#competitions">Comps</a></li>
+      <li><a href="#competitions">Competitions</a></li>
       <li><a href="#experience">Work</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
   <div id="hero">
-    <div class="hero-grid-bg"></div>
-    <div class="hero-glow"></div>
     <div class="hero-inner">
       <div class="hero-photo-wrap">
         <img src="avatar.png" alt="Ayden Quinn" class="hero-photo" />
       </div>
       <div class="hero-text">
-        <p class="hero-tag">// Cybersecurity &amp; Development</p>
+        <p class="hero-tag">Cybersecurity &amp; Development</p>
         <h1 class="hero-name">Ayden<br /><span>Quinn</span></h1>
         <p class="hero-sub">Dual-credit senior, two-time national FBLA competitor, self-taught Linux systems engineer, and aspiring penetration tester heading to Drury University in Fall 2026.</p>
         <div class="hero-badges">
@@ -762,10 +668,9 @@
 
   <div class="section-divider"></div>
 
-  <!-- ABOUT -->
   <section id="about">
     <div class="reveal">
-      <p class="section-label">// 01 — About</p>
+      <p class="section-label">01 — About</p>
       <h2 class="section-title">Who I Am</h2>
       <div class="section-rule"></div>
     </div>
@@ -789,8 +694,8 @@
           <div class="stat-label">Dual-Credit Courses</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num">∞</div>
-          <div class="stat-label">Hours on the Terminal</div>
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Years on the Terminal</div>
         </div>
       </div>
     </div>
@@ -798,16 +703,19 @@
 
   <div class="section-divider"></div>
 
-  <!-- PROJECTS -->
   <section id="projects">
     <div class="reveal">
-      <p class="section-label">// 02 — Projects</p>
+      <p class="section-label">02 — Projects</p>
       <h2 class="section-title">What I've Built</h2>
       <div class="section-rule"></div>
     </div>
     <div class="projects-grid">
       <div class="project-card reveal">
-        <div class="project-icon">🔧</div>
+        <div class="project-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>
         <div class="project-name">Autoshop CRM</div>
         <p class="project-desc">A full-stack customer relationship management system built for a real automotive repair shop. Handles customer records, vehicle service history, and appointment scheduling — built so non-technical staff can use it without training.</p>
         <div class="project-tags">
@@ -819,18 +727,11 @@
         <a href="https://github.com/AydenForCybersec/Autoshop-CRM" target="_blank" class="project-link">View on GitHub →</a>
       </div>
       <div class="project-card reveal">
-        <div class="project-icon">🖼️</div>
-        <div class="project-name">AltGen</div>
-        <p class="project-desc">A Python utility for automated alt-text generation. Designed to improve accessibility by programmatically describing images — an intersection of scripting and practical problem-solving.</p>
-        <div class="project-tags">
-          <span class="tag">Python</span>
-          <span class="tag">Automation</span>
-          <span class="tag">Accessibility</span>
+        <div class="project-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
         </div>
-        <a href="https://github.com/AydenForCybersec/AltGen" target="_blank" class="project-link">View on GitHub →</a>
-      </div>
-      <div class="project-card reveal">
-        <div class="project-icon">✍️</div>
         <div class="project-name">Digital Sign</div>
         <p class="project-desc">A Python-based digital signature project exploring cryptographic concepts and document integrity verification — built to understand the mechanics of public key infrastructure hands-on.</p>
         <div class="project-tags">
@@ -845,10 +746,9 @@
 
   <div class="section-divider"></div>
 
-  <!-- SKILLS -->
   <section id="skills">
     <div class="reveal">
-      <p class="section-label">// 03 — Skills</p>
+      <p class="section-label">03 — Skills</p>
       <h2 class="section-title">What I Work With</h2>
       <div class="section-rule"></div>
     </div>
@@ -871,7 +771,7 @@
         </ul>
       </div>
       <div class="skill-group">
-        <div class="skill-group-title">Frameworks & Tools</div>
+        <div class="skill-group-title">Frameworks &amp; Tools</div>
         <ul class="skill-list">
           <li>Flask</li>
           <li>SQL Database Mgmt</li>
@@ -909,16 +809,21 @@
 
   <div class="section-divider"></div>
 
-  <!-- COMPETITIONS -->
   <section id="competitions">
     <div class="reveal">
-      <p class="section-label">// 04 — Competitions</p>
+      <p class="section-label">04 — Competitions</p>
       <h2 class="section-title">FBLA National Stage</h2>
       <div class="section-rule"></div>
     </div>
     <div class="comps-list">
       <div class="comp-card reveal">
-        <div class="comp-icon">🌐</div>
+        <div class="comp-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
         <div>
           <div class="comp-title">Network Infrastructure</div>
           <div class="comp-org">Future Business Leaders of America</div>
@@ -930,7 +835,12 @@
         <div class="comp-year">June 2026</div>
       </div>
       <div class="comp-card reveal">
-        <div class="comp-icon">🔒</div>
+        <div class="comp-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
         <div>
           <div class="comp-title">Cybersecurity</div>
           <div class="comp-org">Future Business Leaders of America</div>
@@ -946,10 +856,9 @@
 
   <div class="section-divider"></div>
 
-  <!-- WORK EXPERIENCE -->
   <section id="experience">
     <div class="reveal">
-      <p class="section-label">// 05 — Work Experience</p>
+      <p class="section-label">05 — Work Experience</p>
       <h2 class="section-title">Where I've Worked</h2>
       <div class="section-rule"></div>
     </div>
@@ -957,7 +866,7 @@
       <div class="work-card reveal">
         <div class="work-header">
           <div>
-            <div class="work-title">Ticket Sales & Customer Service</div>
+            <div class="work-title">Ticket Sales &amp; Customer Service</div>
             <div class="work-company">Ozarks Amphitheater — Camdenton, MO</div>
           </div>
           <div class="work-date">May – Sep 2024</div>
@@ -987,31 +896,45 @@
 
   <div class="section-divider"></div>
 
-  <!-- CONTACT -->
   <section id="contact">
     <div class="reveal">
-      <p class="section-label">// 06 — Contact</p>
+      <p class="section-label">06 — Contact</p>
       <h2 class="section-title">Get In Touch</h2>
       <div class="section-rule" style="margin: 0 auto 1rem;"></div>
       <p style="color: var(--muted); font-size: 0.95rem;">Open to internships, opportunities, and interesting conversations.</p>
     </div>
     <div class="contact-grid reveal">
       <a href="mailto:aydenrq@proton.me" class="contact-card">
-        <div class="contact-card-icon">✉️</div>
+        <div class="contact-card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
         <div>
           <div class="contact-card-label">Email</div>
           <div class="contact-card-value">aydenrq@proton.me</div>
         </div>
       </a>
       <a href="https://github.com/AydenForCybersec" target="_blank" class="contact-card">
-        <div class="contact-card-icon">⌨️</div>
+        <div class="contact-card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+        </div>
         <div>
           <div class="contact-card-label">GitHub</div>
           <div class="contact-card-value">AydenForCybersec</div>
         </div>
       </a>
       <a href="https://www.linkedin.com/in/ayden-quinn-8b8483295/" target="_blank" class="contact-card">
-        <div class="contact-card-icon">💼</div>
+        <div class="contact-card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </div>
         <div>
           <div class="contact-card-label">LinkedIn</div>
           <div class="contact-card-value">Ayden Quinn</div>
@@ -1020,19 +943,15 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
-    <p>© 2026 Ayden Quinn &nbsp;·&nbsp; Built with HTML, CSS &amp; JS &nbsp;·&nbsp; Hosted on GitHub Pages</p>
+    <p>© 2026 Ayden Quinn</p>
   </footer>
 
-  <!-- SCROLL REVEAL SCRIPT -->
   <script>
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, 80);
+          setTimeout(() => entry.target.classList.add('visible'), 80);
           observer.unobserve(entry.target);
         }
       });
